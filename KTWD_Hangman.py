@@ -2,6 +2,7 @@
 import pygame, sys
 
 word = 'hangman'
+word = word.lower()
 
 # initialize window
 pygame.init()
