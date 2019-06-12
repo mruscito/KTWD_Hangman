@@ -9,6 +9,8 @@ window_width = 620
 window_height = 766
 window = pygame.display.set_mode((window_width, window_height))
 pygame.display.set_caption('Intel KTWD Hangman')
+title_font = pygame.font.Font('Drawings/IndieFlower.ttf', 90)
+letter_font = pygame.font.Font('Drawings/IndieFlower.ttf', 60)
 clock = pygame.time.Clock()
 
 # RGB colors
@@ -20,58 +22,56 @@ red = (255, 0, 0)
 def draw_display():
     background = pygame.image.load('Drawings/linedpaper.png')
     window.blit(background, (0, 0))
-    font = pygame.font.Font('Drawings/IndieFlower.ttf', 90)
-    window.blit(font.render('Hangman', True, black), (145, -20))
+    window.blit(title_font.render('Hangman', True, black), (145, -20))
     noose = pygame.image.load('Drawings/noose.png')
     window.blit(noose, (90, 145))
     for i in range(len(word)):
         blank_line = pygame.image.load('Drawings/blank_line.png')
         window.blit(blank_line, (320 + (i*66) - ((66*(len(word)-1))/2), 619 + ((-1)**i)))
-    pygame.display.update()
 
 def correct_guess(guess):
-    print('correct!')
+    for occurance in range(len(word)):
+        if word.find(guess, occurance) != -1:
+            window.blit(letter_font.render(guess, True, black), (325 + (word.find(guess, occurance)*66) - ((66*(len(word)-1))/2), 555 + ((-1)**word.find(guess, occurance))))
 
 
-def wrong_guess(guess):
-    print('wrong')
-    head = pygame.image.load('Drawings/head.png')
-    window.blit(head, (245, 192))
-    pygame.display.update()
-    
-    body = pygame.image.load('Drawings/body.png')
-    window.blit(body, (275, 250))
-    pygame.display.update()
-
-    left_arm = pygame.image.load('Drawings/left_arm.png')
-    window.blit(left_arm, (237, 258))
-    pygame.display.update()
-
-    right_arm = pygame.image.load('Drawings/right_arm.png')
-    window.blit(right_arm, (282, 249))
-    pygame.display.update()
-
-    left_leg = pygame.image.load('Drawings/left_leg.png')
-    window.blit(left_leg, (250, 313))
-    pygame.display.update()
-
-    right_leg = pygame.image.load('Drawings/right_leg.png')
-    window.blit(right_leg, (282, 313))
-    pygame.display.update()
+def wrong_guess(guess, wrong_guesses):
+    if wrong_guesses == 1:
+        head = pygame.image.load('Drawings/head.png')
+        window.blit(head, (245, 192))
+    if wrong_guesses == 2:
+        body = pygame.image.load('Drawings/body.png')
+        window.blit(body, (275, 250))
+    if wrong_guesses == 3:
+        left_arm = pygame.image.load('Drawings/left_arm.png')
+        window.blit(left_arm, (237, 258))
+    if wrong_guesses == 4:
+        right_arm = pygame.image.load('Drawings/right_arm.png')
+        window.blit(right_arm, (282, 249))
+    if wrong_guesses == 5:
+        left_leg = pygame.image.load('Drawings/left_leg.png')
+        window.blit(left_leg, (250, 313))
+    if wrong_guesses == 6:
+        right_leg = pygame.image.load('Drawings/right_leg.png')
+        window.blit(right_leg, (282, 313))
 
 
-def check_guess(guess):
+def check_guess(guess, wrong_guesses):
     correct = False
     for letter in word:
         if guess == letter:
             correct_guess(guess)
             correct = True
     if correct == False:
-        wrong_guess(guess)
-    return
+        wrong_guesses += 1
+        wrong_guess(guess, wrong_guesses)
+    return wrong_guesses
 
 def game_loop():
-    while True:
+    game_over = False
+    wrong_guesses = 0
+    guesses = []
+    while not game_over:
         
         for event in pygame.event.get():
             
@@ -84,9 +84,11 @@ def game_loop():
                 guess = event.unicode
                 
                 if guess.isalpha():
-                    check_guess(guess)
+                    guesses.append(guess)
+                    wrong_guesses = check_guess(guess, wrong_guesses)
+                    
+        pygame.display.update()
 
-                print(guess)
-
-draw_display()
-game_loop()
+while True:
+    draw_display()
+    game_loop()
