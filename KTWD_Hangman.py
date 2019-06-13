@@ -1,7 +1,7 @@
 # Hangman for Intel KTWD 2019
 import pygame, sys
 
-word = 'hangman'
+word = 'intel'
 word = word.lower()
 
 # initialize window
@@ -23,6 +23,8 @@ red = (255, 0, 0)
 def draw_display():
     background = pygame.image.load('Drawings/linedpaper.png')
     window.blit(background, (0, 0))
+    intel = pygame.image.load('Drawings/intel_logo.png')
+    window.blit(intel, (542, 722))
     window.blit(title_font.render('Hangman', True, black), (145, -20))
     noose = pygame.image.load('Drawings/noose.png')
     window.blit(noose, (90, 145))
@@ -55,6 +57,8 @@ def wrong_guess(guess, wrong_guesses):
     if wrong_guesses == 6:
         right_leg = pygame.image.load('Drawings/right_leg.png')
         window.blit(right_leg, (282, 313))
+        dead = pygame.image.load('Drawings/dead.png')
+        window.blit(dead, (260, 208))
 
 
 def check_guess(guess, wrong_guesses):
@@ -68,10 +72,17 @@ def check_guess(guess, wrong_guesses):
         wrong_guess(guess, wrong_guesses)
     return wrong_guesses
 
+def previous_guess(guess, old_guesses, new_guess=True):
+    for old_guess in old_guesses:
+        if guess == old_guess:
+            new_guess = False
+    return new_guess
+
+
 def game_loop():
     game_over = False
     wrong_guesses = 0
-    guesses = []
+    old_guesses = []
     while not game_over:
         
         for event in pygame.event.get():
@@ -85,8 +96,10 @@ def game_loop():
                 guess = event.unicode
                 
                 if guess.isalpha():
-                    guesses.append(guess)
-                    wrong_guesses = check_guess(guess, wrong_guesses)
+                    new_guess = previous_guess(guess, old_guesses)
+                    old_guesses.append(guess)
+                    if new_guess == True:
+                        wrong_guesses = check_guess(guess, wrong_guesses)
                     
         pygame.display.update()
 
