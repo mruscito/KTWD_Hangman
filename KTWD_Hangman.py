@@ -1,14 +1,28 @@
 # Hangman for Intel KTWD 2019
 # by Michael Ruscito
-import pygame, sys, tkinter as tk
+import pygame, sys, random, tkinter as tk
+from tkinter import messagebox
+
+# random words
+random_words = ['intel', 'computer', 'drive', 'power', 'memory', 'cpu', 'wonderful', 'genuis', 'keyboard', 'future', 'monitor', 'internet', 'gigabyte', 'data', 'program'
+                'java', 'python', 'laptop', 'encrypt', 'flash', 'hacker']
 
 # use GUI to get word for game from user
 def make_word():
     global word
     word = submit.get()
+    if check.get() == 1:
+        word = random.choice(random_words)
+    word = word.lower()
     global word_list
     word_list = list(word)
     root.destroy()
+
+def use_random():
+    if check.get() == 1:
+        submit.config(state=tk.DISABLED)
+    elif check.get() == 0:
+        submit.config(state=tk.NORMAL)
 
 def get_word():
     global root
@@ -16,13 +30,28 @@ def get_word():
     root.title('Intel KTWD Hangman')
     root.geometry('300x80')
     entry_label = tk.Label(root, text='Enter a word:')
+    entry_label.grid(column=0, row=0)
     global submit
     submit = tk.Entry(root)
-    entry_label.pack()
-    submit.pack()
+    submit.grid(column=1, row=0)
+    check_label = tk.Label(root, text='Use a random word:')
+    check_label.grid(column=0, row=1)
+    global check
+    check = tk.IntVar()
+    checkbox = tk.Checkbutton(root, variable=check, command=use_random)
+    checkbox.grid(column=1, row=1)
     play_button = tk.Button(root, text='Play', command=make_word)
-    play_button.pack()
+    play_button.grid(column=1, row=2)
     root.mainloop()
+
+def word_error(bad_word=False):
+    if len(word) > 9:
+        messagebox.showerror('Error', 'Please enter a shorter word.\n9 character maximum.')
+        bad_word=True
+    if not word.isalpha():
+        messagebox.showerror('Error', 'Only letters are allowed.\nNo numbers, spaces, or special characters.')
+        bad_word=True
+    return bad_word
 
 # initialize game window
 def initialize_game():
@@ -191,20 +220,15 @@ def game_loop():
                         game_over = gameover(wrong_guesses)
         pygame.display.update()
 
-get_word()
-initialize_game()
-main_menu()
-draw_display()
-game_loop()
-play_again()
-
-'''
-main_menu()
+# run the game
 while True:
-    word_info = get_word()
-    word = word_info[0]
-    word_list = word_info[1]
-    draw_display(word)
-    game_loop(word, word_list)
+    get_word()
+    bad_word = word_error()
+    while bad_word == True:
+        get_word()
+        bad_word = word_error()
+    initialize_game()
+    main_menu()
+    draw_display()
+    game_loop()
     play_again()
-'''
