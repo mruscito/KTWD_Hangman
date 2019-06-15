@@ -4,8 +4,9 @@ import pygame, sys, random, tkinter as tk
 from tkinter import messagebox
 
 # random words
-random_words = ['intel', 'computer', 'drive', 'power', 'memory', 'cpu', 'wonderful', 'genuis', 'keyboard', 'future', 'monitor', 'internet', 'gigabyte', 'data', 'program'
-                'java', 'python', 'laptop', 'encrypt', 'flash', 'hacker']
+random_words = ['intel', 'computer', 'drive', 'power', 'memory', 'cpu', 'wonderful', 'genuis', 'keyboard', 'future', 'monitor', 'internet', 'gigabyte', 'data', 'program',
+                'java', 'python', 'laptop', 'encrypt', 'flash', 'hacker', 'chip', 'code', 'icon', 'app', 'phone', 'tech', 'keyboard', 'mouse', 'speed', 'diode', 'logic',
+                'electric', 'science', 'engineer', 'core', 'plug', 'charge', 'physics', 'fun', 'google', 'learn', 'email', 'screen', 'webcam', 'shock', 'voltage','current']
 
 # use GUI to get word for game from user
 def make_word():
