@@ -1,5 +1,5 @@
 # KTWD_Hangman
-Requirements: Python 3, Jupyter Notebook, Pygame, Tkinter
+*Requirements*: Python 3, Jupyter Notebook, Pygame, Tkinter
 
 For Workshop program, run Programming101.ipynb
 
