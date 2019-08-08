@@ -1,6 +1,8 @@
 # KTWD_Hangman
 **Requirements**: Python 3, Jupyter Notebook, Pygame, Tkinter
 
+*For Pseudo Code program*: run PseudoCode.py
+
 *For Workshop program*: run Programming101.ipynb
 
 *For solutions to workshop*: run jupyter_hangman_answers.ipynb
