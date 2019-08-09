@@ -66,6 +66,8 @@ def initialize_game():
     global window
     window = pygame.display.set_mode((window_width, window_height))
     pygame.display.set_caption('Intel KTWD Hangman')
+    icon = pygame.image.load('Drawings/hangman_icon.ico')
+    pygame.display.set_icon(icon)
     clock = pygame.time.Clock()
 
 # initialize writing fonts
@@ -261,7 +263,7 @@ line5_key_words = ['guess', 'give', 'guesses', 'gives', ]
 line6_key_words = ['correct', 'right', 'in', 'good', 'correctly', ]
 line8_key_words = ['incorrect', 'wrong', 'not', 'bad', 'incorrectly', ]
 line10_key_words = ['word', 'complete', 'letters', 'blanks', 'spaces', 'completed', ]
-line11_key_words = ['win', 'won', 'victory', 'champion', 'wins', ]
+line11_key_words = ['win', 'won', 'victory', 'champion', 'wins', 'winner', ]
 line13_key_words = ['body', 'dead', 'person', 'hangman', 'hung', ]
 line14_key_words = ['lose', 'loses', 'lost', 'loser', ]
 
@@ -281,18 +283,18 @@ def test_line1():
         if word == 'random':
             word = random.choice(random_words)
         if len(word) > 9:
-            code_box.tag_config('line1', background='red')
+            code_box.tag_config('line1', background='red', foreground='black')
             messagebox.showerror('Error', 'There appears to be an error with your first line of code.\nPlease enter a shorter word.\n9 character maximum.')
             error_code = 1
         elif not word.isalpha():
-            code_box.tag_config('line1', background='red')
+            code_box.tag_config('line1', background='red', foreground='black')
             messagebox.showerror('Error', 'There appears to be an error with your first line of code.\nOnly letters are allowed.\nNo numbers, spaces, or special characters.')
             error_code = 1
         word = word.lower()
         global word_list
         word_list = list(word)
     except:
-        code_box.tag_config('line1', background='red')
+        code_box.tag_config('line1', background='red', foreground='black')
         messagebox.showerror('Error', 'There appears to be an error with your first line of code.\nMake sure that you are defining your word properly.\nExample: word = "intel"')
         error_code = 1
 
@@ -315,10 +317,10 @@ def test_line2():
         if line2[:15] == 'for each letter':
             error_code = 0
         if error_code == 2:
-            code_box.tag_config('line2', background='red')
+            code_box.tag_config('line2', background='red', foreground='black')
             messagebox.showerror('Error', 'There appears to be an error with your second line of code.\nMake sure that you are drawing the game properly.\nExample: Draw gallows')
     except:
-        code_box.tag_config('line2', background='red')
+        code_box.tag_config('line2', background='red', foreground='black')
         messagebox.showerror('Error', 'There appears to be an error with your second line of code.\nMake sure that you are drawing the game properly.\nExample: Draw gallows')
         error_code = 2
 
@@ -341,10 +343,10 @@ def test_line3():
         if line3[:15] == 'for each letter':
             error_code = 0
         if error_code == 3:
-            code_box.tag_config('line3', background='red')
+            code_box.tag_config('line3', background='red', foreground='black')
             messagebox.showerror('Error', 'There appears to be an error with your third line of code.\nMake sure that you are drawing the game properly.\nExample: Draw blanks')
     except:
-        code_box.tag_config('line3', background='red')
+        code_box.tag_config('line3', background='red', foreground='black')
         messagebox.showerror('Error', 'There appears to be an error with your third line of code.\nMake sure that you are drawing the game properly.\nExample: Draw blanks')
         error_code = 3
 
@@ -359,10 +361,10 @@ def test_line4():
         if while_key_word == 'while':
             error_code = 0
         if error_code == 4:
-            code_box.tag_config('line4', background='red')
+            code_box.tag_config('line4', background='red', foreground='black')
             messagebox.showerror('Error', 'There appears to be an error with your fourth line of code.\nDo not forget to create a loop that the game will repeat.\nExample: While the game is not over')
     except:
-        code_box.tag_config('line4', background='red')
+        code_box.tag_config('line4', background='red', foreground='black')
         messagebox.showerror('Error', 'There appears to be an error with your fourth line of code.\nDo not forget to create a loop that the game will repeat.\nExample: While the game is not over')
         error_code = 4
 
@@ -377,10 +379,10 @@ def test_line5():
             if key_word in line_broken:
                 error_code = 0
         if error_code == 5:
-            code_box.tag_config('line5', background='red')
+            code_box.tag_config('line5', background='red', foreground='black')
             messagebox.showerror('Error', 'There appears to be an error with your fifth line of code.\nMake sure that letters are being guessed for the game.\nExample: Player guesses a letter')
     except:
-        code_box.tag_config('line5', background='red')
+        code_box.tag_config('line5', background='red', foreground='black')
         messagebox.showerror('Error', 'There appears to be an error with your fifth line of code.\nMake sure that letters are being guessed for the game.\nExample: Player guesses a letter')
         error_code = 5
 
@@ -396,7 +398,7 @@ def test_line7():
             if draw_key_word in draw_key_words:
                 error_code = 0
             if error_code == 7:
-                code_box.tag_config('line7', background='red')
+                code_box.tag_config('line7', background='red', foreground='black')
                 messagebox.showerror('Error', 'There appears to be an error with your seventh line of code.\nMake sure that correct guesses are written in the spaces.\nExample: Draw the letter in the blank')
         elif error_code == 8:
             line7 = code_lines[8].lower()
@@ -406,15 +408,15 @@ def test_line7():
             if draw_key_word in draw_key_words:
                 error_code = 0
             if error_code == 7:
-                code_box.tag_config('line9', background='red')
+                code_box.tag_config('line9', background='red', foreground='black')
                 messagebox.showerror('Error', 'There appears to be an error with your ninth line of code.\nMake sure that correct guesses are written in the spaces.\nExample: Draw the letter in the blank')
     except:
         if error_code == 6:
-            code_box.tag_config('line7', background='red')
+            code_box.tag_config('line7', background='red', foreground='black')
             messagebox.showerror('Error', 'There appears to be an error with your seventh line of code.\nMake sure that correct guesses are written in the spaces.\nExample: Draw the letter in the blank')
             error_code = 7
         if error_code == 8:
-            code_box.tag_config('line9', background='red')
+            code_box.tag_config('line9', background='red', foreground='black')
             messagebox.showerror('Error', 'There appears to be an error with your ninth line of code.\nMake sure that correct guesses are written in the spaces.\nExample: Draw the letter in the blank')
             error_code = 7
 
@@ -430,7 +432,7 @@ def test_line9():
             if draw_key_word in draw_key_words:
                 error_code = 0
             if error_code == 9:
-                code_box.tag_config('line7', background='red')
+                code_box.tag_config('line7', background='red', foreground='black')
                 messagebox.showerror('Error', 'There appears to be an error with your seventh line of code.\nMake sure that body parts are drawn after incorrect guesses.\nExample: Draw a body part')
         elif error_code == 8:
             line9 = code_lines[8].lower()
@@ -440,15 +442,15 @@ def test_line9():
             if draw_key_word in draw_key_words:
                 error_code = 0
             if error_code == 9:
-                code_box.tag_config('line9', background='red')
+                code_box.tag_config('line9', background='red', foreground='black')
                 messagebox.showerror('Error', 'There appears to be an error with your ninth line of code.\nMake sure that body parts are drawn after incorrect guesses.\nExample: Draw a body part')
     except:
         if error_code == 6:
-            code_box.tag_config('line7', background='red')
+            code_box.tag_config('line7', background='red', foreground='black')
             messagebox.showerror('Error', 'There appears to be an error with your seventh line of code.\nMake sure that body parts are drawn after incorrect guesses.\nExample: Draw a body part')
             error_code = 9
         if error_code == 8:
-            code_box.tag_config('line9', background='red')
+            code_box.tag_config('line9', background='red', foreground='black')
             messagebox.showerror('Error', 'There appears to be an error with your ninth line of code.\nMake sure that body parts are drawn after incorrect guesses.\nExample: Draw a body part')
             error_code = 9
 
@@ -468,18 +470,18 @@ def test_line6():
                 if key_word in line8_key_words:
                     correct = False
             if correct:
-                code_box.tag_config('line6', background='#7CFC00')
+                code_box.tag_config('line6', background='#7CFC00', foreground='black')
                 test_pass = True
                 test_line7()
             if not correct:
-                code_box.tag_config('line6', background='#7CFC00')
+                code_box.tag_config('line6', background='#7CFC00', foreground='black')
                 test_pass = True
                 test_line9()
         if error_code == 6 and not test_pass:
-            code_box.tag_config('line6', background='red')
+            code_box.tag_config('line6', background='red', foreground='black')
             messagebox.showerror('Error', 'There appears to be an error with your sixth line of code.\nMake sure that guesses are being checked by a conditional statement.\nExample: If the guess is correct')
     except:
-        code_box.tag_config('line6', background='red')
+        code_box.tag_config('line6', background='red', foreground='black')
         messagebox.showerror('Error', 'There appears to be an error with your sixth line of code.\nMake sure that guesses are being checked by a conditional statement.\nExample: If the guess is correct')
         error_code = 6
 
@@ -499,18 +501,18 @@ def test_line8():
                 if key_word in line8_key_words:
                     correct = False
             if correct:
-                code_box.tag_config('line8', background='#7CFC00')
+                code_box.tag_config('line8', background='#7CFC00', foreground='black')
                 test_pass = True
                 test_line7()
             if not correct:
-                code_box.tag_config('line8', background='#7CFC00')
+                code_box.tag_config('line8', background='#7CFC00', foreground='black')
                 test_pass = True
                 test_line9()
         if error_code == 8 and not test_pass:
-            code_box.tag_config('line8', background='red')
+            code_box.tag_config('line8', background='red', foreground='black')
             messagebox.showerror('Error', 'There appears to be an error with your eighth line of code.\nMake sure that guesses are being checked by a conditional statement.\nExample: If the guess is incorrect')
     except:
-        code_box.tag_config('line8', background='red')
+        code_box.tag_config('line8', background='red', foreground='black')
         messagebox.showerror('Error', 'There appears to be an error with your eighth line of code.\nMake sure that guesses are being checked by a conditional statement.\nExample: If the guess is incorrect')
         error_code = 8
 
@@ -525,10 +527,10 @@ def test_line12():
             if key_word in line11_key_words or key_word == 'game':
                 error_code = 0
         if error_code == 12:
-            code_box.tag_config('line12', background='red')
+            code_box.tag_config('line12', background='red', foreground='black')
             messagebox.showerror('Error', 'There appears to be an error with your twelfth line of code.\nDo not forget to close your while-loop.\nExample: The game is over')
     except:
-        code_box.tag_config('line12', background='red')
+        code_box.tag_config('line12', background='red', foreground='black')
         messagebox.showerror('Error', 'There appears to be an error with your twelfth line of code.\nDo not forget to close your while-loop.\nExample: The game is over')
         error_code = 12
 
@@ -543,10 +545,10 @@ def test_line15():
             if key_word in line14_key_words or key_word == 'game':
                 error_code = 0
         if error_code == 15:
-            code_box.tag_config('line15', background='red')
+            code_box.tag_config('line15', background='red', foreground='black')
             messagebox.showerror('Error', 'There appears to be an error with your fifteenth line of code.\nDo not forget to close your while-loop.\nExample: The game is over')
     except:
-        code_box.tag_config('line15', background='red')
+        code_box.tag_config('line15', background='red', foreground='black')
         messagebox.showerror('Error', 'There appears to be an error with your fifteenth line of code.\nDo not forget to close your while-loop.\nExample: The game is over')
         error_code = 15
 
@@ -561,15 +563,15 @@ def test_line11():
             line_broken = line11.split(' ')
             for key_word in line_broken:
                 if key_word in line11_key_words:
-                    code_box.tag_config('line11', background='#7CFC00')
+                    code_box.tag_config('line11', background='#7CFC00', foreground='black')
                     test_pass = True
                     test_line12()
                 elif key_word == 'game':
-                    code_box.tag_config('line11', background='#7CFC00')
+                    code_box.tag_config('line11', background='#7CFC00', foreground='black')
                     test_pass = True
                     test_line12()
             if error_code == 11 and not test_pass:
-                code_box.tag_config('line11', background='red')
+                code_box.tag_config('line11', background='red', foreground='black')
                 messagebox.showerror('Error', 'There appears to be an error with your eleventh line of code.\nDo not forget to declare the winner.\nExample: Player wins the game!')
         elif error_code == 13:
             line11 = code_lines[13].lower()
@@ -577,23 +579,23 @@ def test_line11():
             line_broken = line11.split(' ')
             for key_word in line_broken:
                 if key_word in line11_key_words:
-                    code_box.tag_config('line14', background='#7CFC00')
+                    code_box.tag_config('line14', background='#7CFC00', foreground='black')
                     test_pass = True
                     test_line15()
                 elif key_word == 'game':
-                    code_box.tag_config('line14', background='#7CFC00')
+                    code_box.tag_config('line14', background='#7CFC00', foreground='black')
                     test_pass = True
                     test_line15()
             if error_code == 13 and not test_pass:
-                code_box.tag_config('line11', background='red')
+                code_box.tag_config('line11', background='red', foreground='black')
                 messagebox.showerror('Error', 'There appears to be an error with your fourteenth line of code.\nDo not forget to declare the winner.\nExample: Player wins the game!')
     except:
         if error_code == 10:
-            code_box.tag_config('line11', background='red')
+            code_box.tag_config('line11', background='red', foreground='black')
             messagebox.showerror('Error', 'There appears to be an error with your eleventh line of code.\nDo not forget to declare the winner.\nExample: Player wins the game!')
             error_code = 11
         if error_code == 13:
-            code_box.tag_config('line14', background='red')
+            code_box.tag_config('line14', background='red', foreground='black')
             messagebox.showerror('Error', 'There appears to be an error with your fourteenth line of code.\nDo not forget to declare the winner.\nExample: Player wins the game!')
             error_code = 11
 
@@ -608,39 +610,39 @@ def test_line14():
             line_broken = line14.split(' ')
             for key_word in line_broken:
                 if key_word in line14_key_words:
-                    code_box.tag_config('line11', background='#7CFC00')
+                    code_box.tag_config('line11', background='#7CFC00', foreground='black')
                     test_pass = True
                     test_line12()
                 elif key_word == 'game':
-                    code_box.tag_config('line11', background='#7CFC00')
+                    code_box.tag_config('line11', background='#7CFC00', foreground='black')
                     test_pass = True
                     test_line12()
             if error_code == 14 and not test_pass:
-                code_box.tag_config('line11', background='red')
+                code_box.tag_config('line11', background='red', foreground='black')
                 messagebox.showerror('Error', 'There appears to be an error with your eleventh line of code.\nDo not forget to declare a loser.\nExample: Player loses the game')
         elif error_code == 13:
             line14 = code_lines[13].lower()
             error_code = 14
             line_broken = line14.split(' ')
             for key_word in line_broken:
-                if key_word in line11_key_words:
-                    code_box.tag_config('line14', background='#7CFC00')
+                if key_word in line14_key_words:
+                    code_box.tag_config('line14', background='#7CFC00', foreground='black')
                     test_pass = True
                     test_line15()
                 elif key_word == 'game':
-                    code_box.tag_config('line14', background='#7CFC00')
+                    code_box.tag_config('line14', background='#7CFC00', foreground='black')
                     test_pass = True
                     test_line15()
             if error_code == 14 and not test_pass:
-                code_box.tag_config('line14', background='red')
+                code_box.tag_config('line14', background='red', foreground='black')
                 messagebox.showerror('Error', 'There appears to be an error with your fourteenth line of code.\nDo not forget to declare a loser.\nExample: Player loses the game')
     except:
         if error_code == 10:
-            code_box.tag_config('line14', background='red')
+            code_box.tag_config('line14', background='red', foreground='black')
             messagebox.showerror('Error', 'There appears to be an error with your eleventh line of code.\nDo not forget to declare a loser.\nExample: Player loses the game')
             error_code = 14
         if error_code == 13:
-            code_box.tag_config('line14', background='red')
+            code_box.tag_config('line14', background='red', foreground='black')
             messagebox.showerror('Error', 'There appears to be an error with your fourteenth line of code.\nDo not forget to declare a loser.\nExample: Player loses the game')
             error_code = 14
 
@@ -660,18 +662,18 @@ def test_line10():
                 if key_word in line13_key_words:
                     victory = False
             if victory:
-                code_box.tag_config('line10', background='#7CFC00')
+                code_box.tag_config('line10', background='#7CFC00', foreground='black')
                 test_pass = True
                 test_line11()
             if not victory:
-                code_box.tag_config('line10', background='#7CFC00')
+                code_box.tag_config('line10', background='#7CFC00', foreground='black')
                 test_pass = True
                 test_line14()
         if error_code == 10 and not test_pass:
-            code_box.tag_config('line10', background='red')
+            code_box.tag_config('line10', background='red', foreground='black')
             messagebox.showerror('Error', 'There appears to be an error with your tenth line of code.\nDo not forget a conditional statement to check if the game is over.\nExample: If the word is complete')
     except:
-        code_box.tag_config('line10', background='red')
+        code_box.tag_config('line10', background='red', foreground='black')
         messagebox.showerror('Error', 'There appears to be an error with your tenth line of code.\nDo not forget a conditional statement to check if the game is over.\nExample: If the word is complete')
         error_code = 10
 
@@ -691,18 +693,18 @@ def test_line13():
                 if key_word in line13_key_words:
                     victory = False
             if victory:
-                code_box.tag_config('line13', background='#7CFC00')
+                code_box.tag_config('line13', background='#7CFC00', foreground='black')
                 test_pass = True
                 test_line11()
             if not victory:
-                code_box.tag_config('line13', background='#7CFC00')
+                code_box.tag_config('line13', background='#7CFC00', foreground='black')
                 test_pass = True
                 test_line14()
         if error_code == 13 and not test_pass:
-            code_box.tag_config('line13', background='red')
+            code_box.tag_config('line13', background='red', foreground='black')
             messagebox.showerror('Error', 'There appears to be an error with your thirteenth line of code.\nDo not forget a conditional statement to check if the game is over.\nExample: If the body is fully drawn')
     except:
-        code_box.tag_config('line13', background='red')
+        code_box.tag_config('line13', background='red', foreground='black')
         messagebox.showerror('Error', 'There appears to be an error with your thirteenth line of code.\nDo not forget a conditional statement to check if the game is over.\nExample: If the body is fully drawn')
         error_code = 13
 
@@ -713,8 +715,38 @@ def check_code_length():
         global error_code
         if len(line17) > 0:
             error_code = 17
-            code_box.tag_config('line16', background='red')
+            code_box.tag_config('line16', background='red', foreground='black')
             messagebox.showerror('Error', 'There appears to be an error with the length of your of code.\nYour code is too long. Try shortening it.')
+    except:
+        pass
+
+
+def easter_egg():
+    try:
+        line16 = code_lines[15]
+        if line16 == 'dark_mode':
+            root.config(bg='#505050')
+            code_label.config(bg='#505050', fg='white')
+            code_box.config(bg='black', fg='white', insertbackground='white')
+            test_button.config(bg='#808080', fg='white')
+            code_box.tag_config('line1', background='black')
+            code_box.tag_config('line2', background='black')
+            code_box.tag_config('line3', background='black')
+            code_box.tag_config('line4', background='black')
+            code_box.tag_config('line5', background='black')
+            code_box.tag_config('line6', background='black')
+            code_box.tag_config('line7', background='black')
+            code_box.tag_config('line8', background='black')
+            code_box.tag_config('line9', background='black')
+            code_box.tag_config('line10', background='black')
+            code_box.tag_config('line11', background='black')
+            code_box.tag_config('line12', background='black')
+            code_box.tag_config('line13', background='black')
+            code_box.tag_config('line14', background='black')
+            code_box.tag_config('line15', background='black')
+            code_box.tag_config('line16', background='black')
+        if line16 == 'goodbye':
+            root.attributes('-alpha', 0.01)
     except:
         pass
 
@@ -735,7 +767,7 @@ def test_code():
     code_box.tag_add('line13', '13.0', '13.80')
     code_box.tag_add('line14', '14.0', '14.80')
     code_box.tag_add('line15', '15.0', '15.80')
-    code_box.tag_add('line16', '16.0', '16.80')
+    code_box.tag_add('line16', '16.0', 'end')
     code_box.tag_config('line1', background='white')
     code_box.tag_config('line2', background='white')
     code_box.tag_config('line3', background='white')
@@ -768,35 +800,35 @@ def test_code():
             for word in line_list:
                 fixed_line += word
             code_lines[code_lines.index(line)] = fixed_line
+    easter_egg()
     # test each line of code
     test_line1()
     if error_code == 0:
-        code_box.tag_config('line1', background='#7CFC00')
+        code_box.tag_config('line1', background='#7CFC00', foreground='black')
         test_line2()
         if error_code == 0:
-            code_box.tag_config('line2', background='#7CFC00')
+            code_box.tag_config('line2', background='#7CFC00', foreground='black')
             test_line3()
             if error_code == 0:
-                code_box.tag_config('line3', background='#7CFC00')
+                code_box.tag_config('line3', background='#7CFC00', foreground='black')
                 test_line4()
                 if error_code == 0:
-                    code_box.tag_config('line4', background='#7CFC00')
+                    code_box.tag_config('line4', background='#7CFC00', foreground='black')
                     test_line5()
                     if error_code == 0:
-                        code_box.tag_config('line5', background='#7CFC00')
+                        code_box.tag_config('line5', background='#7CFC00', foreground='black')
                         test_line6()
                         if error_code == 0:
-                            code_box.tag_config('line7', background='#7CFC00')
+                            code_box.tag_config('line7', background='#7CFC00', foreground='black')
                             test_line8()
                             if error_code == 0:
-                                code_box.tag_config('line9', background='#7CFC00')
+                                code_box.tag_config('line9', background='#7CFC00', foreground='black')
                                 test_line10()
                                 if error_code == 0:
-                                    code_box.tag_config('line12', background='#7CFC00')
+                                    code_box.tag_config('line12', background='#7CFC00', foreground='black')
                                     test_line13()
                                     if error_code == 0:
-                                        code_box.tag_config('line15', background='#7CFC00')
-                                        code_box.tag_config('line16', background='#7CFC00')
+                                        code_box.tag_config('line15', background='#7CFC00', foreground='black')
                                         check_code_length()
                                         if error_code == 0:
                                             play_button.pack()
@@ -807,12 +839,14 @@ def pseudo_code():
     global root
     root = tk.Tk()
     root.title('Intel KTWD Hangman')
-    #root.configure(bg='black')
+    root.iconbitmap('Drawings/hangman_icon.ico')
+    global code_label
     code_label = tk.Label(root, text='Enter your code here:')
     code_label.pack()
     global code_box
-    code_box = tk.Text(root) #, bg='black', fg='white', insertbackground='white')
+    code_box = tk.Text(root)
     code_box.pack()
+    global test_button
     test_button = tk.Button(root, text='Test My Code', command=test_code)
     test_button.pack()
     global play_button
